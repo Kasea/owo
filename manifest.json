@@ -1,6 +1,7 @@
 {
-  "files": {
-    "index.js": "9ab590de2576fb4ab017b455e8a5e005418a12d790389ca9e297f212fc3a20eb",
-    "README.md": "2339ca7e104c764222c0c754336e47566f50c021a20af6417735e06ae4c2d3f6"
-  }
+    "files": {
+        "index.js": "ff31fb43651e769fe95290ebdb3340455ee4a14806cdbd9ca709f55a03b3b197",
+        "README.md": "2339ca7e104c764222c0c754336e47566f50c021a20af6417735e06ae4c2d3f6"
+    },
+    "defs": {}
 }

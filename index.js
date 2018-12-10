@@ -7,21 +7,12 @@ const mapOwOify = { 'r':'w',
                 };
 
 module.exports = function OwO(mod){
-    let enabled = false;
-
-    mod.command.add("owo", {
-        state() {
-            enabled = !enabled;
-            mod.command.message(`State: ${enabled}`);
-        },
-    }, this);
-    
-    function Owoify(event) {
-        if(!enabled) return;
+    function OwOify(event) {
         event.message = event.message.replace(/[rlnRLN](?![^<&]*[\>;])/ig, (str) => str = mapOwOify[str]);
         return true;
     };
 
-    mod.hook('S_CHAT',2,Owoify);
-    mod.hook('S_WHISPER',2,Owoify);
+    mod.hook('S_CHAT', 2, OwOify);
+    mod.hook('S_WHISPER', 2, OwOify);
+    mod.hook('C_CHAT', 1, OwOify);
 }
