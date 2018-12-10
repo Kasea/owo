@@ -9,7 +9,7 @@ const mapOwOify = { 'r':'w',
 module.exports = function OwO(mod){
     let enabled = false;
 
-    mod.command.add("sp", {
+    mod.command.add("owo", {
         state() {
             enabled = !enabled;
             mod.command.message(`State: ${enabled}`);
