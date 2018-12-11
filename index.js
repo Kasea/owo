@@ -21,19 +21,16 @@ const phrases = {
 };
 
 module.exports = function OwO(mod){
-    function OwOify(event) {
-        let msg = event.message;
-
+    function OwOify(msg) {
         for(let rgx in phrases) msg = msg.replace(new RegExp(rgx), phrases[rgx]);
 
         // add a random face on "!"
         msg = msg.replace(/\!+/g, " " + faces[Math.floor(Math.random() * faces.length)] + " ");
 
-        event.message = v;
-        return true;
+        return msg;
     }
 
-    mod.hook('S_CHAT', 2, OwOify);
-    mod.hook('S_WHISPER', 2, OwOify);
-    mod.hook('C_CHAT', 1, OwOify);
+    mod.hook('S_CHAT', 2, e=> (e.message = OwOify(e.message)) && true);
+    mod.hook('S_WHISPER', 2, e=> (e.message = OwOify(e.message)) && true);
+    mod.hook('C_CHAT', 1, e=> (e.message = OwOify(e.message)) && true);
 }
