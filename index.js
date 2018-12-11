@@ -22,7 +22,7 @@ const phrases = {
 
 module.exports = function OwO(mod){
     function OwOify(msg) {
-        for(let rgx in phrases) msg = msg.replace(new RegExp(rgx), phrases[rgx]);
+        for(let rgx in phrases) msg = msg.replace(new RegExp(rgx, 'g'), phrases[rgx]);
 
         // add a random face on "!"
         msg = msg.replace(/\!+/g, " " + faces[Math.floor(Math.random() * faces.length)] + " ");
