@@ -30,7 +30,7 @@ module.exports = function OwO(mod){
         return msg;
     }
 
-    mod.hook('S_CHAT', 2, e=> (e.message = OwOify(e.message)) && true);
-    mod.hook('S_WHISPER', 2, e=> (e.message = OwOify(e.message)) && true);
-    mod.hook('C_CHAT', 1, e=> (e.message = OwOify(e.message)) && true);
+    mod.hook('S_CHAT', 2, e=> ((e.message = OwOify(e.message)) && (e.authorName = OwOify(e.authorName)) && true));
+    mod.hook('S_WHISPER', 2, e=> ((e.message = OwOify(e.message)) && ((mod.game.me.name == e.authorName) ? (e.recipient = OwOify(e.recipient)) : (e.authorName = OwOify(e.authorName))) && true));
+    mod.hook('C_CHAT', 1, e=> ((e.message = OwOify(e.message)) && true));
 }
