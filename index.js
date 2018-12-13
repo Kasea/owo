@@ -25,18 +25,19 @@ const phrases = {
     "boy": "boi",
 
     // replace "nya" with "nya~"
-    "nya([< ])": "nya~$1",
-    "Nya([< ])": "Nya~$1",
-    "NYA([< ])": "NYA~$1",
+    "nya([< ]|$)": "nya~$1",
+    "Nya([< ]|$)": "Nya~$1",
+    "NYA([< ]|$)": "NYA~$1",
 
     // replace "kya" with "kya~"
-    "kya([< ])": "kya~$1",
-    "Kya([< ])": "Kya~$1",
-    "KYA([< ])": "KYA~$1",
+    "kya([< ]|$)": "kya~$1",
+    "Kya([< ]|$)": "Kya~$1",
+    "KYA([< ]|$)": "KYA~$1",
 };
 
 module.exports = function OwO(mod) {
     const DEBUG = false;
+    let name_map = new Map();
 
     function OwOify(msg) {
         for(let rgx in phrases) msg = msg.replace(new RegExp(rgx, 'g'), phrases[rgx]);
@@ -60,7 +61,15 @@ module.exports = function OwO(mod) {
 
             case "S_WHISPER": {
                 if(mod.game.me.name == e.authorName) e.recipient = OwOify(e.recipient)
-                else e.authorName = OwOify(e.authorName)
+                else {
+                    name_map.set(OwOify(e.authorName), e.authorName);
+                    e.authorName = OwOify(e.authorName)
+                }
+                break;
+            }
+
+            case "C_WHISPER": {
+                if(name_map.has(e.target)) e.target = name_map.get(e.target);
                 break;
             }
         }
@@ -69,7 +78,8 @@ module.exports = function OwO(mod) {
         return true;
     }
 
-    mod.hook('S_CHAT', 2, foo.bind(null, "S_CHAT"));
-    mod.hook('S_WHISPER', 2, foo.bind(null, "S_WHISPER"));
-    mod.hook('C_CHAT', 1, foo.bind(null, "C_CHAT"));
+    mod.hook('S_CHAT', 2, {filter: {fake: null}}, foo.bind(null, "S_CHAT"));
+    mod.hook('S_WHISPER', 2, {filter: {fake: null}}, foo.bind(null, "S_WHISPER"));
+    mod.hook('C_CHAT', 1, {filter: {fake: null}}, foo.bind(null, "C_CHAT"));
+    mod.hook('C_WHISPER', 1, {filter: {fake: null}}, foo.bind(null, "C_WHISPER"));
 }
