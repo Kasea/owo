@@ -5,8 +5,8 @@ const phrases = {
     "worse": "wose",
 
     // replace (r || l) -> w
-    "(?:r|l)": "w",
-    "(?:R|L)": "W",
+    "(?:([^&]r)|([^&]l))": "$1w",
+    "(?:[^&]R|[^&]L)": "$1W",
 
     // replace n[a,e,i,o,u]y%
     "n([aeiou])": "ny$1",
