@@ -4,9 +4,13 @@ const phrases = {
     // replace "worse" with "wose"
     "worse": "wose",
 
-    // replace (r || l) -> w
-    "(?:([^&]r)|([^&]l))": "$1w",
-    "(?:[^&]R|[^&]L)": "$1W",
+    // replace (l) -> w
+    "([^&])(l)": "$1w",
+    "([^&])(L)": "$1W",
+
+    // replace r -> r
+    "([^&])(r)": "$1w",
+    "([^&])(R)": "$1W",
 
     // replace n[a,e,i,o,u]y%
     "n([aeiou])": "ny$1",
@@ -40,7 +44,10 @@ module.exports = function OwO(mod) {
     let name_map = new Map();
 
     function OwOify(msg) {
-        for(let rgx in phrases) msg = msg.replace(new RegExp(rgx, 'g'), phrases[rgx]);
+        for(let rgx in phrases) {
+            msg = msg.replace(new RegExp(rgx, 'g'), phrases[rgx]);
+            if(DEBUG) console.log(rgx, ":", msg);
+        }
 
         // add a random face on "!"
         msg = msg.replace(/\!+/g, " " + faces[Math.floor(Math.random() * faces.length)] + " ");
