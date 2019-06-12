@@ -50,7 +50,7 @@ module.exports = function OwO(mod) {
         }
 
         // add a random face on "!"
-        msg = msg.replace(/\!/g, ()=> " " + faces[Math.floor(Math.random() * faces.length)] + " ");
+        msg = msg.replace(/\!/g, ()=> " " + faces[Math.floor(Math.random() * faces.length)]);
 
         return msg;
     }
